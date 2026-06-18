@@ -19,11 +19,13 @@ async def main():
     # 2. Add handlers
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
-    
+    async def id(update, context):
+    await update.message.reply_text(str(update.effective_chat.id))
     # 3. Initialize and run
     await app.initialize()
     await app.start()
     await app.updater.start_polling()
+    app.add_handler(CommandHandler("id", id))
     
     # Keep the bot running until the process is interrupted
     try:
